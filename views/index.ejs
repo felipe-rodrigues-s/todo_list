@@ -8,7 +8,15 @@
   <title>To Do List</title>
 </head>
 <body>
-  <h1>hello Word</h1>
+  <form action="/home/create" method="post">
+    <input type="text" name="task" id="task" placeholder="Nome da tarefa">
+    <button type="submit" id="addButton">Adicionar</button>
+  </form>
+  <ul>
+  <% listTasks.forEach((task) =>{ %>
+    <li/><%= task.task %> | <%= task.date.toLocaleDateString ('pr-BR') %>
+    <% }); %>
+  </ul>
 </body>
 <script type="text/javascript" src="script.js"></script>
 </html>
