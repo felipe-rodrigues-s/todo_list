@@ -1,11 +1,13 @@
-// import mongoose from 'mongoose';
+require('dotenv').config();
 const mongoose = require('mongoose');
+
+const urlDataBase = process.env.URL_DATABASE || 3000
 
 const conectToDB = async () => {
   //  const db = new mongoose();
   // db.connect(process.env.MONGO_URI);
   await mongoose.connect(
-    `mongodb+srv://root:admin@todo.aikvoaz.mongodb.net/?retryWrites=true&w=majority`,
+    urlDataBase,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
