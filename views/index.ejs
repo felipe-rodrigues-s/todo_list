@@ -4,19 +4,35 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
   <title>To Do List</title>
 </head>
 <body>
+
+<header>
+  <% if (task == null){ %>
   <form action="/home/create" method="post">
     <input type="text" name="task" id="task" placeholder="Nome da tarefa">
     <button type="submit" id="addButton">Adicionar</button>
   </form>
-  <ul>
-  <% listTasks.forEach((task) =>{ %>
-    <li/><%= task.task %> | <%= task.date.toLocaleDateString ('pr-BR') %>
-    <% }); %>
-  </ul>
+  <% }else{ %>
+  <form action="/home/updateOne/<%= task._id %>" method="post">
+    <input type="text" name="task" id="task" value="<%= task.task %>">
+    <button type="submit" id="addButton">Atualizar</button>
+  </form>
+  <% } %>
+</header>
+  <section> 
+    <ul>
+      <% listTasks.forEach((task) =>{ %>
+        <li>
+        <%= task.task %> | <%= task.date.toLocaleDateString ('pr-BR') %>
+        <a href="/home/getById/<%= task._id %>">Editar</a>
+        <a href="">Apagar</a>
+        </li>
+        <% }); %>
+      </ul>
+  </section>
 </body>
-<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="/script.js"></script>
 </html>

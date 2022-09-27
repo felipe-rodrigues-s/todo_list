@@ -1,9 +1,11 @@
 const Router = require ("express")
-const {getAllTasks, createTask} = require ("../controller/TaskController.js")
+const {getAllTasks, createTask, getById, updateOneTask} = require ("../controller/TaskController.js")
 
 const router = Router();
 
 router.get('/home', getAllTasks)
-router.post('/home/create', createTask)
+router.get('/home/getById/:id', getById)
+router.post('/home/create/:id', createTask)
+router.post('/home/updateOne/:id', updateOneTask)
 
 module.exports = router
