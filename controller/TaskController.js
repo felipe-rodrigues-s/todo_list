@@ -4,7 +4,7 @@ const TaskSchema = require("../models/Task.js");
 const getAllTasks = async (req, res) => {
   const listTasks = await TaskSchema.find();
   try {
-    return res.render("index", { listTasks, task: null });
+    return res.render("index", { listTasks, task: null, taskDelete: null });
   } catch (err) {
     return res.status(500).send({ err: err.message });
   }
@@ -25,11 +25,17 @@ const createTask = async (req, res) => {
 
 const getById = async (req, res) => {
   try {
-    const task = await TaskSchema.findOne({ _id: req.params.id });
     const listTasks = await TaskSchema.find();
-    res.render("index", { task, listTasks });
+
+    if (req.params.method == "update") {
+      const task = await TaskSchema.findOne({ _id: req.params.id });
+      res.render("index", { task, listTasks, taskDelete: null });
+    } else {
+      const taskDelete = await TaskSchema.findOne({ _id: req.params.id });
+      res.render("index", { task: null, listTasks, taskDelete });
+    }
   } catch (error) {
-    return res.status(500).send({ err: err.message });
+    return res.status(500).send({ error: error.message });
   }
 };
 
@@ -42,5 +48,21 @@ const updateOneTask = async (req, res) => {
     return res.status(500).send({ error: error.message });
   }
 };
+
+const deleteOneTask = async (req, res) => {
+  try {
+    await TaskSchema.deleteOne({ _id: req.params.id });
+    res.redirect("/home");
+  } catch (err) {
+    return res.status(500).send({ error: error.message });
+  }
+};
+
 // export { getAllTasks, createTask };
-module.exports = { getAllTasks, createTask, getById, updateOneTask };
+module.exports = {
+  getAllTasks,
+  createTask,
+  getById,
+  updateOneTask,
+  deleteOneTask,
+};

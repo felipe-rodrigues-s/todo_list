@@ -4,8 +4,8 @@ const {getAllTasks, createTask, getById, updateOneTask} = require ("../controlle
 const router = Router();
 
 router.get('/home', getAllTasks)
-router.get('/home/getById/:id', getById)
-router.post('/home/create/:id', createTask)
+router.get('/home/getById/:id/:method', getById)
+router.post('/home/create', createTask)
 router.post('/home/updateOne/:id', updateOneTask)
 
 module.exports = router

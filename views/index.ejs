@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html lang="pr-br">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/style.css">
-  <title>To Do List</title>
-</head>
-<body>
-
-<header>
-  <% if (task == null){ %>
-  <form action="/home/create" method="post">
-    <input type="text" name="task" id="task" placeholder="Nome da tarefa">
-    <button type="submit" id="addButton">Adicionar</button>
-  </form>
-  <% }else{ %>
-  <form action="/home/updateOne/<%= task._id %>" method="post">
-    <input type="text" name="task" id="task" value="<%= task.task %>">
-    <button type="submit" id="addButton">Atualizar</button>
-  </form>
-  <% } %>
-</header>
-  <section> 
-    <ul>
-      <% listTasks.forEach((task) =>{ %>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>To Do List</title>
+  </head>
+  <body>
+    <header>
+      <% if (task == null){ %>
+      <form action="/home/create" method="post">
+        <input type="text" name="task" id="task" placeholder="Nome da tarefa" />
+        <button type="submit" id="addButton">Adicionar</button>
+      </form>
+      <% }else{ %>
+      <form action="/home/updateOne/<%= task._id %>" method="post">
+        <input type="text" name="task" id="task" value="<%= task.task %>" />
+        <button type="submit" id="addButton">Atualizar</button>
+      </form>
+      <% } %>
+    </header>
+    <section>
+      <ul>
+        <% listTasks.forEach((task) =>{ %>
         <li>
-        <%= task.task %> | <%= task.date.toLocaleDateString ('pr-BR') %>
-        <a href="/home/getById/<%= task._id %>">Editar</a>
-        <a href="">Apagar</a>
+          <%= task.task %> | <%= task.date.toLocaleDateString ('pr-BR') %>
+          <a href="/home/getById/<%= task._id %>/update">Editar</a>
+          <a href="/home/getById/<%= task._id %>/delete">Apagar</a>
         </li>
         <% }); %>
       </ul>
-  </section>
-</body>
-<script type="text/javascript" src="/script.js"></script>
+    </section>
+
+    <% if(taskDelete != null){ %>
+    <section id="modal">
+      <div id="card">
+        <a href="/home">X</a>
+        <h2>Confirmação</h2>
+        <hr />
+        <p>Deseja realmente apagar a tarefa: <%= taskDelete.task %>?</p>
+        <a href="/home">Não</a>
+        <a href="/home/deleteTask<%= taskDelete._id %>">Sim</a>
+      </div>
+    </section>
+    <%}%>
+  </body>
+  <script type="text/javascript" src="/script.js"></script>
 </html>
