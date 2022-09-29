@@ -1,9 +1,8 @@
-require('dotenv').config();
 const mongoose = require('mongoose');
 
-const urlDataBase = process.env.URL_DATABASE || 3000
+const urlDataBase = process.env.URL_DATABASE
 
-const conectToDB = async () => {
+const connectToDB = async () => {
   //  const db = new mongoose();
   // db.connect(process.env.MONGO_URI);
   await mongoose.connect(
@@ -20,4 +19,4 @@ const conectToDB = async () => {
     });
 };
 
-module.exports = conectToDB
+module.exports = connectToDB
