@@ -16,6 +16,7 @@
       <span id="close-massage"><i class="bi bi-x"></i></span>
     </section>
     <% } %>
+
     <header>
       <% if (task == null){ %>
       <h1>To Do List</h1>
@@ -34,9 +35,9 @@
     <section id="tasks">
       <ul>
         <% listTasks.forEach((task) =>{ %>
-        <li>
+        <li class="chack-<%= task.check %>">
           <div>
-            <a href="/home"><%= task.task %></a>
+            <a href="/home/check/<%= task._id %>" class="chack-<%= task.check %>"><%= task.task %></a>
             <span> Criado em <%= task.date.toLocaleDateString ('pr-BR') %></span>
           </div>
           <div>

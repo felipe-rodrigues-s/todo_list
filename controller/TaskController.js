@@ -28,7 +28,7 @@ const createTask = async (req, res) => {
   try {
     await TaskSchema.create(task);
     message = "Tarefa Criada com Sucesso!";
-    type = "sucesso";
+    type = "success";
     return res.redirect("/home");
   } catch (err) {
     return res.redirect("/home");
@@ -56,7 +56,7 @@ const updateOneTask = async (req, res) => {
     const task = req.body;
     await TaskSchema.updateOne({ _id: req.params.id }, task);
     message = "Tarefa Atualizada com Sucesso!";
-    type = "sucesso";
+    type = "success";
     res.redirect("/home");
   } catch (error) {
     res.status(500).send({ error: error.message });
@@ -67,9 +67,22 @@ const deleteOneTask = async (req, res) => {
   try {
     await TaskSchema.deleteOne({ _id: req.params.id });
     message = "Tarefa apagada com Sucesso!";
-    type = "sucesso";
+    type = "success";
     res.redirect("/home");
   } catch (err) {
+    res.status(500).send({ error: error.message });
+  }
+};
+
+const taskCheck = async (req, res) => {
+  try {
+    const task = await TaskSchema.findOne({ _id: req.params.id });
+
+    task.check ? (task.check = false) : (task.check = true);
+
+    await TaskSchema.updateOne({ _id: req.params.id }, task);
+    return res.redirect("/home");
+  } catch (error) {
     res.status(500).send({ error: error.message });
   }
 };
@@ -81,4 +94,5 @@ module.exports = {
   getById,
   updateOneTask,
   deleteOneTask,
+  taskCheck,
 };
