@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "build": "node server.js"
   },
   "keywords": [],
   "author": "Felipe",
@@ -14,10 +14,10 @@
   "dependencies": {
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "mongoose": "^6.6.0"
+    "mongoose": "^6.6.0",
+    "nodemon": "^2.0.20",
+    "dotenv": "^16.0.2"
   },
   "devDependencies": {
-    "dotenv": "^16.0.2",
-    "nodemon": "^2.0.20"
   }
 }
