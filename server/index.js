@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const cors = require("cors")
 const express = require ("express")
 const path = require ("path")
 
@@ -8,8 +9,10 @@ const conecteToDB = require ("./src/data/db.js")
 
 const app = express();
 
+
 conecteToDB()
 
+app.use(cors())
 app.use(express.static(path.join(__dirname, "./src")));
 app.use(express.json());
 app.use(express.urlencoded());
